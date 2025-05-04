@@ -2,7 +2,11 @@ Package: ggexample
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
 Authors@R: 
-    person("Charlotte", "Dawson", , "csdaw@outlook.com", role = c("aut", "cre"))
+    person(given = "Charlotte",
+           family = "Dawson",
+           role = c("aut", "cre"),
+           email = "csdaw@outlook.com",
+           comment = c(ORCID = "0000-0002-7151-5971"))
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 Encoding: UTF-8

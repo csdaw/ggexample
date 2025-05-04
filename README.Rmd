@@ -8,3 +8,38 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 Examples of extending ggplot2 because I always forget.
+
+```{r}
+library(ggplot2)
+library(ggexample)
+```
+
+
+## stat_chull
+
+```{r}
+ggplot(mpg, aes(displ, hwy)) + 
+  geom_point() + 
+  stat_chull(fill = NA, colour = "black")
+
+ggplot(mpg, aes(displ, hwy, colour = drv)) + 
+  geom_point() + 
+  stat_chull(fill = NA)
+```
+
+```{r}
+set.seed(2)
+df <- tibble::tibble(
+  x = runif(5, max = 10),
+  y = runif(5, max = 10),
+  xend = runif(5, max = 10),
+  yend = runif(5, max = 10),
+  class = sample(letters[1:2], 5, replace = TRUE),
+  tension = runif(5),
+  diameter = runif(5, 0.5, 1.5)
+)
+
+ggplot(df, aes(x, y, xend = xend, yend = yend)) + 
+  geom_spring(aes(tension = tension, diameter = diameter))
+```
+
