@@ -1,0 +1,10 @@
+---
+title: "ggexample"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Examples of extending ggplot2 because I always forget.
