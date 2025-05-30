@@ -41,6 +41,31 @@ geom_spring <- function(mapping = NULL,
   )
 }
 
+stat_spring <- function(mapping = NULL,
+                        data = NULL,
+                        geom = "path",
+                        position = "identity",
+                        ...,
+                        n = 50,
+                        na.rm = FALSE,
+                        show.legend = NA,
+                        inherit.aes = TRUE) {
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = StatSpring,
+    geom = geom,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(
+      n = n,
+      na.rm = na.rm,
+      ...
+    )
+  )
+}
+
 create_spring <- function(x,
                           y,
                           xend,
