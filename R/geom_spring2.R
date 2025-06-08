@@ -145,6 +145,9 @@ springGrob <- function(x0 = unit(0, "npc"),
   )
 }
 
+#' @keywords internal
+#' @export
+#' @method makeContent spring
 makeContent.spring <- function(x) {
 
   # Convert position and diameter values absolute units

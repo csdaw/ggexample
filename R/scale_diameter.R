@@ -1,7 +1,7 @@
 scale_diameter_continuous <- function(...,
                                       range = c(0.25, 0.7),
                                       unit = "cm") {
-  range <- grid::convertWidth(
+  range <- convertWidth(
     unit(range, unit),
     "cm",
     valueOnly = TRUE
