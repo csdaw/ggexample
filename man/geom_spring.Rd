@@ -94,6 +94,9 @@ lists which parameters it can accept.
 \link[ggplot2:draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
+\item{n}{\code{integer}, number of points used per revolution. Defines the
+visual fidelity of the spring.}
+
 \item{arrow}{Arrow specification, as created by \code{\link[grid:arrow]{grid::arrow()}}.}
 
 \item{lineend}{Line end style (round, butt, square).}

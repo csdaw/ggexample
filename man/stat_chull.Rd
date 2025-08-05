@@ -36,6 +36,10 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
+\item{geom}{Override the default connection between \code{stat_chull()} and
+\code{geom_polygon()}. For more information about overriding these connections,
+see how the \link[ggplot2:layer_stats]{stat} and \link[ggplot2:layer_geoms]{geom} arguments work.}
+
 \item{position}{A position adjustment to use on the data for this layer. This
 can be used in various ways, including to prevent overplotting and
 improving the display. The \code{position} argument accepts the following:

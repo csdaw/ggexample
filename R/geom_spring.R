@@ -3,6 +3,8 @@
 #' @description This will be the description.
 #'
 #' @inheritParams ggplot2::geom_path
+#' @param n `integer`, number of points used per revolution. Defines the
+#' visual fidelity of the spring.
 #'
 #' @returns This will return something.
 #' @export
