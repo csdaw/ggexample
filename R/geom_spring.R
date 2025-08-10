@@ -96,8 +96,9 @@ StatSpring <- ggproto("StatSpring", Stat,
 
                       # compute_layer = function(self, data, params, layout)
                       # Input: `data` has 5 rows for 5 springs, columns = tension, diameter, x, y, xend, yend, PANEL, group
-                      # Output: `data` which now has 8993 rpws with the full path x/y coordinates of the 5 springs
-                      # This is performed per PANEL.
+                      # Internally this function calls compute_panel() for each PANEL.
+                      # create_spring() is called within compute_panel().
+                      # Output: `data` which now has 8993 rows with the full path x/y coordinates of the 5 springs
 
                       compute_panel = function(data, scales, n = 50) {
                         cols_to_keep <- setdiff(names(data), c("x", "y", "xend", "yend"))
@@ -161,6 +162,9 @@ GeomSpring <- ggproto("GeomSpring", Geom,
                       ## compute_geom_1 ----------------------------------------
 
                       # setup_params = function(data, params)
+                      # Input:
+                      #   `data` = data.frame with columns: tension, diameter, x, y, xend, yend, PANEL, group. group values are all -1 if a group is not defined.
+                      #   `params` = named list with values: n = 50, arrow = NULL, lineend = "butt", linejoin = "round", na.rm = FALSE
                       # Output: `params`
 
                       # Ensure that each row has a unique group id
@@ -200,10 +204,18 @@ GeomSpring <- ggproto("GeomSpring", Geom,
                       # as an extension point."
 
                       # Transform/split the data into groups.
+                      # Input:
+                      #   `data` = data.frame with columns: tension, diameter, x, y, xend, yend, PANEL, group, colour, linewidth, linetype, alpha
+                      #   `panel_params` = a list of things, mostly ggproto objects, but also a couple of vectors
+                      #   `coord` = a ggproto object
+                      #   The other inputs are self explanatory.
+                      #
                       # "The default `draw_panel()` method splits the data into groups,
                       # passes on the drawing tasks to the group-level `draw_group()` method and
                       # finally assembles these into a single grob. The default `draw_group` method
                       # is not implemented."
+                      #
+                      # Output: Either grid::segmentsGrob() or grid::polylineGrob()
                       draw_panel = function(data,
                                             panel_params,
                                             coord,
@@ -236,6 +248,13 @@ GeomSpring <- ggproto("GeomSpring", Geom,
                         springs <- do.call(rbind, springs)
 
                         # Use the draw_panel() method from GeomPath to do the drawing
+                        # https://github.com/tidyverse/ggplot2/blob/bed8e32d45c7dc98afb783b409edac98854d41a7/R/geom-path.R#L35
+                        # This calls either:
+                        # grid::segmentsGrob()
+                        # https://github.com/SurajGupta/r-source/blob/a28e609e72ed7c47f6ddfbb86c85279a0750f0b7/src/library/grid/R/primitives.R#L376
+                        # or grid::polylineGrob()
+                        # https://github.com/SurajGupta/r-source/blob/a28e609e72ed7c47f6ddfbb86c85279a0750f0b7/src/library/grid/R/primitives.R#L299
+
                         GeomPath$draw_panel(
                           data = springs,
                           panel_params = panel_params,
